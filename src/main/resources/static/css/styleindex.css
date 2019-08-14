@@ -1,0 +1,21 @@
+#password, #username{
+    position: relative;
+    left: 400px;
+    top: 5px;
+}
+
+.welcome{
+    position: relative;
+    left: 400px;
+    color: cadetblue;
+
+}
+
+.login{
+    position: relative;
+    left: 400px;
+    top: 25px;
+}
+
+
+
