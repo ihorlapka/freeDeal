@@ -27,17 +27,16 @@
     </form>
 </sec:authorize>
 <sec:authorize access="isAuthenticated()">
-    <div>
+    <div class="welcome">
         <a href="/profile">My profile</a>
     </div>
-    <div>
+    <div class="welcome">
         <a href="/logout">Logout</a>
     </div>
-    <div>
+    <div class="welcome">
         <a href="/orderPage">
             <button>Order</button>
         </a>
-<%--        <a href="/orderPage">Order</a>--%>
     </div>
 </sec:authorize>
 </body>
