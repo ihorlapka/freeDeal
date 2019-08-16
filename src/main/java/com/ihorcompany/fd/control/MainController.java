@@ -35,8 +35,6 @@ public class MainController {
     }
 
 
-
-
     @GetMapping({"/", "/index", "/logout"})
     public String index(){
         return "index";
@@ -81,7 +79,8 @@ public class MainController {
 
     @GetMapping("/orderPage")
     public String orderPage(Principal principal, Model model){
-        model.addAttribute("order", principal.getName());
+        model.addAttribute("ordername", principal.getName());
+        model.addAttribute("orderDTO", new OrderDTO());
         return "order";
     }
 

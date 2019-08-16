@@ -7,6 +7,8 @@ public class OrderDTO {
     private Integer dayamount;
     private Integer workersamount;
 
+
+    //password
     private String InvalidName;
     private String InvalidPayment;
     private String InvalidDayAmount;
