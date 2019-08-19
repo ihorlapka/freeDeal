@@ -5,6 +5,8 @@ import com.ihorcompany.fd.model.User;
 import com.ihorcompany.fd.service.OrderService;
 import com.ihorcompany.fd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +25,7 @@ public class MainController {
 
     private UserService userService;
     private OrderService orderService;
+    private int TOTAL = 5;
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -34,9 +37,14 @@ public class MainController {
         this.orderService = orderService;
     }
 
-
     @GetMapping({"/", "/index", "/logout"})
-    public String index(){
+    public String index(Model model,
+                        @RequestParam(name = "page", required = false, defaultValue = "1") String page,
+                        @RequestParam(name = "sort", required = false, defaultValue = "id") String sort){
+        model.addAttribute("users", userService.findAll(PageRequest.of(
+                Integer.parseInt(page)-1, TOTAL, Sort.by(sort))));
+        model.addAttribute("orders", orderService.findAll(PageRequest.of(
+                Integer.parseInt(page)-1, TOTAL, Sort.by(sort))));
         return "index";
     }
 
@@ -61,7 +69,7 @@ public class MainController {
             return "/register";
         }
         userService.registerNewUser(userDTO);
-        return "redirect:/profile";
+        return "index";
     }
 
     @GetMapping("/profile")
@@ -88,6 +96,7 @@ public class MainController {
     public String order(@ModelAttribute(name = "orderDTO")OrderDTO orderDTO, Model model){
         model.addAttribute("orderDTO", orderDTO);
         orderService.saveNewOrder(orderDTO);
-        return "order";
+        System.out.println("Order "+orderDTO+" successfully created");
+        return "index";
     }
 }

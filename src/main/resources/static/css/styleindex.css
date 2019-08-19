@@ -8,13 +8,32 @@
     position: relative;
     left: 400px;
     color: cadetblue;
+}
 
+.back{
+    background-image: url("css/pictures/fd_header.jpg");
+    background-size: 100%;
 }
 
 .login{
     position: relative;
     left: 400px;
     top: 25px;
+}
+
+.table-users{
+    position: relative;
+    top: 100px;
+    color: darkcyan;
+    background-color: yellow;
+}
+
+.table-orders{
+    position: relative;
+    top: 100px;
+    color: darkcyan;
+    background-color: yellow;
+    left: 420px;
 }
 
 

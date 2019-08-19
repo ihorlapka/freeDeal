@@ -22,7 +22,7 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private String phone;
-    private String age;
+    private int age;
     private String profession;
     private String profilepicture;
     private String hobbies;
@@ -40,6 +40,11 @@ public class User implements UserDetails {
         roles.forEach(r -> authorities.add(new SimpleGrantedAuthority(r.name())));
         return authorities;
     }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private List<Order> orders;
+
+
 
     @Override
     public boolean isAccountNonExpired() {
@@ -131,11 +136,11 @@ public class User implements UserDetails {
         this.phone = phone;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
@@ -163,6 +168,14 @@ public class User implements UserDetails {
         this.hobbies = hobbies;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -173,11 +186,12 @@ public class User implements UserDetails {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", phone='" + phone + '\'' +
-                ", age='" + age + '\'' +
+                ", age=" + age +
                 ", profession='" + profession + '\'' +
                 ", profilepicture='" + profilepicture + '\'' +
                 ", hobbies='" + hobbies + '\'' +
                 ", roles=" + roles +
+                ", orders=" + orders +
                 '}';
     }
 }

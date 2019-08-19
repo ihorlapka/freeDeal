@@ -28,7 +28,7 @@ public class OrderServiceImplement implements OrderService {
 
     @Override
     public Optional<Order> findByOrderName(String orderName) {
-        return orderRepository.findOrderByOrdrername(orderName);
+        return orderRepository.findOrderByOrdername(orderName);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class OrderServiceImplement implements OrderService {
 
     @Override
     public void deleteByOrderName(String orderName) {
-        orderRepository.deleteOrderByOrdrername(orderName);
+        orderRepository.deleteOrderByOrdername(orderName);
     }
 
     @Override
@@ -54,12 +54,12 @@ public class OrderServiceImplement implements OrderService {
     @Override
     public void saveNewOrder(OrderDTO orderDTO) {
         Order order = new Order();
-        order.setOrdrername(orderDTO.getOrdername());
+        order.setOrdername(orderDTO.getOrdername());
         order.setPayment(orderDTO.getPayment());
         order.setDayamount(orderDTO.getDayamount());
         order.setWorkersamount(orderDTO.getWorkersamount());
         order.setDescription("No description");
-        order.setWorkpicture("No work picture");
+        order.setWorkpicture("css/pictures/work.jpg");
         orderRepository.save(order);
     }
 }

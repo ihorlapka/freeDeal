@@ -1,21 +1,27 @@
 package com.ihorcompany.fd.model;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
-@Table(name = "UserOrder")
+@Table(name = "User_Orders")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String ordrername;
+    private String ordername;
     private double payment;
     private int workersamount;
     private int dayamount;
     private String description;
     private String workpicture;
-    private String date;
+    @Basic
+    private Date date;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "User_Orders")
+    private User user;
 
     public Order() {
     }
@@ -28,12 +34,12 @@ public class Order {
         this.id = id;
     }
 
-    public String getOrdrername() {
-        return ordrername;
+    public String getOrdername() {
+        return ordername;
     }
 
-    public void setOrdrername(String ordrername) {
-        this.ordrername = ordrername;
+    public void setOrdername(String ordername) {
+        this.ordername = ordername;
     }
 
     public double getPayment() {
@@ -76,19 +82,27 @@ public class Order {
         this.workpicture = workpicture;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", ordrername='" + ordrername + '\'' +
+                ", ordrername='" + ordername + '\'' +
                 ", payment=" + payment +
                 ", workersamount=" + workersamount +
                 ", dayamount=" + dayamount +

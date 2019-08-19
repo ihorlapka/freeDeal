@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    Optional<Order> findOrderByOrdrername(String ordername);
-    void deleteOrderByOrdrername(String ordername);
+    Optional<Order> findOrderByOrdername(String ordername);
+    void deleteOrderByOrdername(String ordername);
 }
