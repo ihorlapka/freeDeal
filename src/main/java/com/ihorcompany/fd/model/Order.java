@@ -20,7 +20,7 @@ public class Order {
     private Date date;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "User_Orders")
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Order() {
@@ -98,16 +98,20 @@ public class Order {
         this.user = user;
     }
 
+
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", ordrername='" + ordername + '\'' +
+                ", ordername='" + ordername + '\'' +
                 ", payment=" + payment +
                 ", workersamount=" + workersamount +
                 ", dayamount=" + dayamount +
                 ", description='" + description + '\'' +
                 ", workpicture='" + workpicture + '\'' +
+                ", date=" + date +
+                ", userId=" + user.getId() +
+                ", username=" + user.getUsername() +
                 '}';
     }
 }

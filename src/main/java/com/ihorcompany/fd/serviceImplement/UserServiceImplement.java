@@ -6,7 +6,6 @@ import com.ihorcompany.fd.model.User;
 import com.ihorcompany.fd.repository.UserRepository;
 import com.ihorcompany.fd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -79,6 +78,7 @@ public class UserServiceImplement implements UserService {
         ArrayList<Role> roles = new ArrayList<>();
         roles.add(Role.USER);
         user.setRoles(roles);
+//        user.setOrders();
         userRepository.save(user);
     }
 }

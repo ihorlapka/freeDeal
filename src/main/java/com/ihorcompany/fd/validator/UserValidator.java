@@ -34,8 +34,8 @@ public class UserValidator implements ConstraintValidator<RegistrationValidator,
             userDTO.setPasswordsDoNotMatch("Passwords do not match!");
             isValid = false;
         }
-        if (userDTO.getEmail().length() < 5 && userDTO.getEmail().length() > 100 &&
-        !userDTO.getEmail().contains("@") && !userDTO.getEmail().contains(".")){
+        if (userDTO.getEmail().length() < 5 || userDTO.getEmail().length() > 100 ||
+        !userDTO.getEmail().contains("@") || !userDTO.getEmail().contains(".")){
             userDTO.setInvalidEmail("Wrong email try again");
             isValid = false;
         }

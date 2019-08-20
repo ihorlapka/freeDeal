@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -66,10 +67,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/index")
                 .loginProcessingUrl("/loginProcessing")
                 .defaultSuccessUrl("/profile", true)
                 .failureForwardUrl("/index?error=true")
+                .failureUrl("/index?error=true")
+                .failureHandler(loginFailureHandler())
                 .and()
                 .logout()
                 .logoutUrl("/logout")
@@ -80,5 +83,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/resource/**", "/css/**");
+    }
+
+    @Bean
+    public AuthenticationFailureHandler loginFailureHandler(){
+        return new LoginFailureHandler();
     }
 }

@@ -2,6 +2,7 @@ package com.ihorcompany.fd.serviceImplement;
 
 import com.ihorcompany.fd.dto.OrderDTO;
 import com.ihorcompany.fd.model.Order;
+import com.ihorcompany.fd.model.User;
 import com.ihorcompany.fd.repository.OrderRepository;
 import com.ihorcompany.fd.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,7 @@ public class OrderServiceImplement implements OrderService {
         order.setWorkersamount(orderDTO.getWorkersamount());
         order.setDescription("No description");
         order.setWorkpicture("css/pictures/work.jpg");
+//        order.setUser();
         orderRepository.save(order);
     }
 }

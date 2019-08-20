@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
-
 import javax.validation.Valid;
 import java.security.Principal;
 
@@ -48,11 +47,14 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/login")
-    public String login(@RequestParam(name = "error", defaultValue = "false") String hasError, Model model){
-        if(Boolean.parseBoolean(hasError))
-        model.addAttribute("error", "Invalid username or password");
-        return "profile";
+    @PostMapping("/loginProcessing")
+    public String loginPage(@RequestParam(name = "error", defaultValue = "false") String hasError, Model model){
+        System.out.println(Boolean.parseBoolean(hasError));
+        if(Boolean.parseBoolean(hasError)){
+            System.out.println("error");
+            model.addAttribute("error", "Invalid username or password");
+        }
+        return "index";
     }
 
     @GetMapping("/registration")
