@@ -1,16 +1,13 @@
 package com.ihorcompany.fd.model;
 
-import com.ihorcompany.fd.validator.LoginValidator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 
 @Entity
 @Table(name = "User")
@@ -29,10 +26,6 @@ public class User implements UserDetails {
     private String profession;
     private String profilepicture;
     private String hobbies;
-
-    //errors
-//    private String invalidPassword;
-//    private String invalidUsername;
 
 
 
@@ -184,21 +177,6 @@ public class User implements UserDetails {
         this.orders = orders;
     }
 
-//    public String getInvalidUsername() {
-//        return invalidUsername;
-//    }
-//
-//    public void setInvalidUsername(String invalidUsername) {
-//        this.invalidUsername = invalidUsername;
-//    }
-//
-//    public String getInvalidPassword() {
-//        return invalidPassword;
-//    }
-//
-//    public void setInvalidPassword(String invalidPassword) {
-//        this.invalidPassword = invalidPassword;
-//    }
 
     @Override
     public String toString() {

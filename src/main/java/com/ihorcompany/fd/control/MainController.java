@@ -24,7 +24,7 @@ public class MainController {
 
     private UserService userService;
     private OrderService orderService;
-    private int TOTAL = 5;
+    private int TOTAL = 10;
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -74,31 +74,6 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/profile")
-    public String profile(Principal principal, Model model){
-        model.addAttribute("username", principal.getName());
-        System.out.println(userService.readByUsername(principal.getName()));
-        return "profile";
-    }
 
-    @PostMapping("/myProfile")
-    public String  myProfile(@ModelAttribute(name = "user")User user, Model model){
-        model.addAttribute("user", user);
-        return "profile";
-    }
 
-    @GetMapping("/orderPage")
-    public String orderPage(Principal principal, Model model){
-        model.addAttribute("ordername", principal.getName());
-        model.addAttribute("orderDTO", new OrderDTO());
-        return "order";
-    }
-
-    @PostMapping("/order")
-    public String order(@ModelAttribute(name = "orderDTO")OrderDTO orderDTO, Model model){
-        model.addAttribute("orderDTO", orderDTO);
-        orderService.saveNewOrder(orderDTO);
-        System.out.println("Order "+orderDTO+" successfully created");
-        return "index";
-    }
 }

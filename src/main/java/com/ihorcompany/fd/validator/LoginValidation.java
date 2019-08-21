@@ -10,6 +10,9 @@ import javax.validation.ConstraintValidatorContext;
 public class LoginValidation implements ConstraintValidator<LoginValidator, User> {
 
     private UserRepository userRepository;
+    //errors
+//    private String invalidPassword;
+//    private String invalidUsername;
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
@@ -21,18 +24,34 @@ public class LoginValidation implements ConstraintValidator<LoginValidator, User
         boolean isValid = true;
 
 //        if (user.getUsername().isEmpty() || user.getPassword().isEmpty()){
-//            user.setInvalidUsername(user.getUsername().isEmpty()?"Username cannot be empty!":"");
-//            user.setInvalidPassword(user.getPassword().isEmpty()?"Password cannot be empty!":"");
+//            setInvalidUsername(user.getUsername().isEmpty()?"Username cannot be empty!":"");
+//            setInvalidPassword(user.getPassword().isEmpty()?"Password cannot be empty!":"");
 //            isValid =false;
 //        }
 //        if (!userRepository.existsUserByUsername(user.getUsername())){
-//            user.setInvalidUsername("There are no user with such Username!");
+//            setInvalidUsername("There are no user with such Username!");
 //            isValid = false;
 //        }
 //        if ((!userRepository.findUserByUsername(user.getUsername()).get().getPassword().equals(user.getPassword()))){
-//            user.setInvalidPassword("Wrong Password!");
+//            setInvalidPassword("Wrong Password!");
 //            isValid = false;
 //        }
         return isValid;
     }
+
+//    public String getInvalidPassword() {
+//        return invalidPassword;
+//    }
+//
+//    public void setInvalidPassword(String invalidPassword) {
+//        this.invalidPassword = invalidPassword;
+//    }
+//
+//    public String getInvalidUsername() {
+//        return invalidUsername;
+//    }
+//
+//    public void setInvalidUsername(String invalidUsername) {
+//        this.invalidUsername = invalidUsername;
+//    }
 }

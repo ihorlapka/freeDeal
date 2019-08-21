@@ -1,7 +1,33 @@
-#password, #username{
+.password{
     position: relative;
-    left: 400px;
-    top: 5px;
+    left: 850px;
+    top: -70px;
+}
+
+.username{
+    position: relative;
+    top: -50px;
+    left: 650px;
+}
+
+.logo{
+    position: relative;
+    color: darkcyan;
+    padding: auto;
+    left: 10px;
+    size: 100px;
+}
+
+.login-button{
+    position: relative;
+    left: 1050px;
+    top: -90px;
+}
+
+.link-registration{
+    position: relative;
+    left: 1110px;
+    top: -110px;
 }
 
 .welcome{
@@ -11,7 +37,7 @@
 }
 
 .back{
-    background-image: url("css/pictures/fd_header.jpg");
+    background-image: url("pictures/fd_header1.jpg");
     background-size: 100%;
 }
 
@@ -21,26 +47,73 @@
     top: 25px;
 }
 
-.table-users{
+.tables-position{
     position: relative;
     top: 100px;
-    color: darkcyan;
-    background-color: yellow;
+}
+
+.table-users{
+    position: relative;
+    top: 30px;
+    color: dodgerblue;
+    background-color: beige;
+    opacity: 0.8;
 }
 
 .table-orders{
-    position: relative;
-    top: 100px;
-    color: darkcyan;
-    background-color: yellow;
-    left: 420px;
+    position: absolute;
+    color: dodgerblue;
+    background-color: beige;
+    top: 30px;
+    left: 350px;
+    opacity: 0.8;
 }
 
 .error{
-    color: coral;
+    color: wheat;
     background-color: darkcyan;
 }
 
+.header{
+    position: fixed;
+    width: 100%;
+    box-shadow: 2px 2px 5px;
+    background-color: transparent;
+}
 
+.header-banner{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: -100;
+    opacity: 0.9;
+}
 
+.order-button{
+    position: absolute;
+    top: 35px;
+    left: 1150px;
+}
 
+.logout-button{
+    position: absolute;
+    top: 35px;
+    right: 150px;
+    color: dodgerblue;
+}
+
+.profile-button{
+    position: absolute;
+    top: 35px;
+    right: 250px;
+}
+
+.profile-button:hover{
+    color: dodgerblue;
+}
+
+body{
+    background-color: grey;
+}
