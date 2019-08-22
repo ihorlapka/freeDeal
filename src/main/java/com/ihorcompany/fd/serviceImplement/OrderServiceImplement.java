@@ -1,9 +1,11 @@
 package com.ihorcompany.fd.serviceImplement;
 
 import com.ihorcompany.fd.dto.OrderDTO;
+import com.ihorcompany.fd.exception.UserNotFoundException;
 import com.ihorcompany.fd.model.Order;
 import com.ihorcompany.fd.model.User;
 import com.ihorcompany.fd.repository.OrderRepository;
+import com.ihorcompany.fd.repository.UserRepository;
 import com.ihorcompany.fd.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +18,12 @@ import java.util.Optional;
 public class OrderServiceImplement implements OrderService {
 
     private OrderRepository orderRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Autowired
     public void setOrderRepository(OrderRepository orderRepository) {
@@ -61,7 +69,8 @@ public class OrderServiceImplement implements OrderService {
         order.setWorkersamount(orderDTO.getWorkersamount());
         order.setDescription("No description");
         order.setWorkpicture("css/pictures/work.jpg");
-//        order.setUser();
+        System.out.println(orderDTO.getUsername());
+        order.setUser(userRepository.findUserByUsername(orderDTO.getUsername()).orElseThrow(UserNotFoundException::new));
         orderRepository.save(order);
     }
 }

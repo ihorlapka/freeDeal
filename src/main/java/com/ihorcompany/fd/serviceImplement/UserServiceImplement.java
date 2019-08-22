@@ -73,12 +73,24 @@ public class UserServiceImplement implements UserService {
         user.setUsername(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        user.setProfilepicture("css/pictures/anonymous.png");
+        user.setProfilepicture("pictures/anonymous.png");
         user.setAge(1);
         ArrayList<Role> roles = new ArrayList<>();
         roles.add(Role.USER);
         user.setRoles(roles);
-//        user.setOrders();
         userRepository.save(user);
+    }
+
+    @Override
+    public User update(User user) {
+        System.out.println("User username = "+user.getUsername());
+        return userRepository.save(user);
+    }
+
+    @Override
+    public void setUserInfoById(Long userId, String username, String firstname, String secondname, String email,
+                                String password, String phone, int age, String profession, String profilePicture, String hobbies) {
+        userRepository.setUserInfoById(userId,username,firstname,secondname,email,password,phone,age,profession,
+                profilePicture,hobbies);
     }
 }

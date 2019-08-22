@@ -18,6 +18,7 @@
         </div>
         <div>
             <form:input path="dayamount" placeholder="Day Amount"/>
+            <form:input path="username" value="${ordername}" type="hidden"/>
         </div>
         <div>
             <input type="submit" value=Register>

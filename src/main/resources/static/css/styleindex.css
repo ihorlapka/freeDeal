@@ -94,7 +94,7 @@
 .order-button{
     position: absolute;
     top: 35px;
-    left: 1150px;
+    right: 250px;
 }
 
 .logout-button{

@@ -24,14 +24,14 @@ public class OrderController {
 
     @GetMapping("/orderPage")
     public String orderPage(Principal principal, Model model){
+        OrderDTO orderDTO = new OrderDTO();
         model.addAttribute("ordername", principal.getName());
-        model.addAttribute("orderDTO", new OrderDTO());
+        model.addAttribute("orderDTO", orderDTO);
         return "order";
     }
 
     @PostMapping("/order")
-    public String order(@ModelAttribute(name = "orderDTO")OrderDTO orderDTO, Model model){
-        model.addAttribute("orderDTO", orderDTO);
+    public String order(@ModelAttribute(name = "orderDTO")OrderDTO orderDTO){
         orderService.saveNewOrder(orderDTO);
         System.out.println("Order "+orderDTO+" successfully created");
         return "index";

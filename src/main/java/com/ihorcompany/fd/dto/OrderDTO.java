@@ -6,6 +6,7 @@ public class OrderDTO {
     private Double payment;
     private Integer dayamount;
     private Integer workersamount;
+    private String username;
 
 
     //password
@@ -16,6 +17,14 @@ public class OrderDTO {
     private String alreadyExist;
 
     public OrderDTO() {
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getOrdername() {
