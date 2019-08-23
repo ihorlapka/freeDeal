@@ -94,24 +94,19 @@
 .order-button{
     position: absolute;
     top: 35px;
-    right: 250px;
+    right: 126px;
 }
 
 .logout-button{
     position: absolute;
     top: 35px;
-    right: 150px;
-    color: dodgerblue;
+    right: 50px;
 }
 
 .profile-button{
     position: absolute;
     top: 35px;
-    right: 250px;
-}
-
-.profile-button:hover{
-    color: dodgerblue;
+    right: 200px;
 }
 
 body{

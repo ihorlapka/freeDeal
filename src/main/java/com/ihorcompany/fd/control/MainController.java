@@ -1,7 +1,5 @@
 package com.ihorcompany.fd.control;
-import com.ihorcompany.fd.dto.OrderDTO;
 import com.ihorcompany.fd.dto.UserDTO;
-import com.ihorcompany.fd.model.User;
 import com.ihorcompany.fd.service.OrderService;
 import com.ihorcompany.fd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import javax.validation.Valid;
-import java.security.Principal;
 
 @Controller
 public class MainController {
@@ -73,7 +70,4 @@ public class MainController {
         userService.registerNewUser(userDTO);
         return "index";
     }
-
-
-
 }

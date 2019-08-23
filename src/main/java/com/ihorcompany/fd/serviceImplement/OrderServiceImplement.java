@@ -68,7 +68,7 @@ public class OrderServiceImplement implements OrderService {
         order.setDayamount(orderDTO.getDayamount());
         order.setWorkersamount(orderDTO.getWorkersamount());
         order.setDescription("No description");
-        order.setWorkpicture("css/pictures/work.jpg");
+        order.setWorkpicture("pictures/work.jpg");
         System.out.println(orderDTO.getUsername());
         order.setUser(userRepository.findUserByUsername(orderDTO.getUsername()).orElseThrow(UserNotFoundException::new));
         orderRepository.save(order);

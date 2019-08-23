@@ -1,7 +1,6 @@
 package com.ihorcompany.fd.control;
 
 import com.ihorcompany.fd.dto.OrderDTO;
-import com.ihorcompany.fd.model.Order;
 import com.ihorcompany.fd.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

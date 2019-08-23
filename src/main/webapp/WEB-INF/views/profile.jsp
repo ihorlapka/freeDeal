@@ -10,7 +10,9 @@
     <header>
         <h1>My ${user.username}  profile</h1>
         <div>
-            <a href="/">Back to index</a>
+            <a href="/">
+                <button>Back to index</button>
+            </a>
         </div>
         <br>
     </header>
@@ -66,9 +68,27 @@
     <div>
         <ul>
             <c:forEach items="${files}" var="file">
-                <li><a href="${file}"${file}></a></li>
+                <li><a href="${file}">${file}</a></li>
             </c:forEach>
         </ul>
+    </div>
+    <div>
+        <table border="1" width="30" cellpadding="2" class="table-profile">
+            <tr>
+                <th>Picture</th>
+                <th><a href="/profile?page=${param.get("page")}&sort=ordername">Ordername</a></th>
+                <th><a href="/profile?page=${param.get("page")}&sort=payment">Payment</a></th>
+                <th><a href="/profile?page=${param.get("page")}&sort=workersamount">Workers</a></th>
+                <th><a href="/profile?page=${param.get("page")}&sort=dayamount">Days</a></th>
+            </tr>
+            <c:forEach items="${user.orders}" var="uo">
+                <tr>${uo.workpicture}</tr>
+                <tr>${uo.ordername}</tr>
+                <tr>${uo.payment}</tr>
+                <tr>${uo.workersamount}</tr>
+                <tr>${uo.dayamount}</tr>
+            </c:forEach>
+        </table>
     </div>
 </body>
 </html>

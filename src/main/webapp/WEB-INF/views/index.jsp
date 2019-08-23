@@ -11,7 +11,7 @@
     <header class="header">
         <h1 class="logo"><i><strong>Free Deal</strong></i></h1>
         <div class="header-banner">
-            <img src="pictures/fd_header1.jpg" alt="banner" width="1356">
+            <img src="pictures/fd_header1.jpg" alt="banner" width="1366">
         </div>
 
 <sec:authorize access="isAnonymous()">
