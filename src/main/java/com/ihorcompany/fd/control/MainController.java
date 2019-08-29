@@ -1,5 +1,6 @@
 package com.ihorcompany.fd.control;
 import com.ihorcompany.fd.dto.UserDTO;
+import com.ihorcompany.fd.exception.UserNotFoundException;
 import com.ihorcompany.fd.service.OrderService;
 import com.ihorcompany.fd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class MainController {
@@ -34,13 +36,17 @@ public class MainController {
     }
 
     @GetMapping({"/", "/index", "/logout"})
-    public String index(Model model,
-                        @RequestParam(name = "page", required = false, defaultValue = "1") String page,
-                        @RequestParam(name = "sort", required = false, defaultValue = "id") String sort){
+    public String index(Model model, Principal principal,
+                        @RequestParam(name = "userPage", required = false, defaultValue = "1") String userPage,
+                        @RequestParam(name = "userSort", required = false, defaultValue = "username") String userSort,
+                        @RequestParam(name = "orderPage", required = false, defaultValue = "1") String orderPage,
+                        @RequestParam(name = "orderSort", required = false, defaultValue = "ordername") String orderSort){
         model.addAttribute("users", userService.findAll(PageRequest.of(
-                Integer.parseInt(page)-1, TOTAL, Sort.by(sort))));
+                Integer.parseInt(userPage)-1, TOTAL, Sort.by(userSort))));
         model.addAttribute("orders", orderService.findAll(PageRequest.of(
-                Integer.parseInt(page)-1, TOTAL, Sort.by(sort))));
+                Integer.parseInt(orderPage)-1, TOTAL, Sort.by(orderSort))));
+        if(principal != null)
+            model.addAttribute("user", userService.readByUsername(principal.getName()).orElseThrow(UserNotFoundException::new));
         return "index";
     }
 
@@ -70,4 +76,5 @@ public class MainController {
         userService.registerNewUser(userDTO);
         return "index";
     }
+
 }

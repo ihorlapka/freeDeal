@@ -11,9 +11,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String ordername;
-    private double payment;
-    private int workersamount;
-    private int dayamount;
+    private Double payment;
+    private Integer workersamount;
+    private Integer dayamount;
     private String description;
     private String workpicture;
     @Basic
@@ -42,27 +42,27 @@ public class Order {
         this.ordername = ordername;
     }
 
-    public double getPayment() {
+    public Double getPayment() {
         return payment;
     }
 
-    public void setPayment(double payment) {
+    public void setPayment(Double payment) {
         this.payment = payment;
     }
 
-    public int getWorkersamount() {
+    public Integer getWorkersamount() {
         return workersamount;
     }
 
-    public void setWorkersamount(int workersamount) {
+    public void setWorkersamount(Integer workersamount) {
         this.workersamount = workersamount;
     }
 
-    public int getDayamount() {
+    public Integer getDayamount() {
         return dayamount;
     }
 
-    public void setDayamount(int dayamount) {
+    public void setDayamount(Integer dayamount) {
         this.dayamount = dayamount;
     }
 
@@ -101,17 +101,9 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "\n   Order{" +
                 "id=" + id +
                 ", ordername='" + ordername + '\'' +
-                ", payment=" + payment +
-                ", workersamount=" + workersamount +
-                ", dayamount=" + dayamount +
-                ", description='" + description + '\'' +
-                ", workpicture='" + workpicture + '\'' +
-                ", date=" + date +
-                ", userId=" + user.getId() +
-                ", username=" + user.getUsername() +
                 '}';
     }
 }

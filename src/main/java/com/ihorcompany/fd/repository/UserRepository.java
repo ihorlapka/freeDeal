@@ -15,11 +15,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void deleteUserByUsername(String username);
     boolean existsUserByUsername(String username);
     boolean existsUserByEmail(String email);
-    @Modifying
-    @Query("update User u set u.id = ?1, u.username = ?2, u.firstname = ?3, u.secondname = ?4," +
-            "u.email = ?5, u.password = ?6, u.phone = ?7, u.age = ?8, u.profession = ?9," +
-            "u.profilepicture = ?10, u.hobbies = ?11")
-    void setUserInfoById(Long userId, String username, String firstname, String secondname,
-                         String email, String password, String phone, int age, String profession,
-                         String profilePicture, String hobbies);
+
 }

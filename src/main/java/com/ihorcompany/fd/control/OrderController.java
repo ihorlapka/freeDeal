@@ -1,13 +1,15 @@
 package com.ihorcompany.fd.control;
 
-import com.ihorcompany.fd.dto.OrderDTO;
+import com.ihorcompany.fd.exception.OrderNotFoundException;
+import com.ihorcompany.fd.exception.UserNotFoundException;
+import com.ihorcompany.fd.model.Order;
 import com.ihorcompany.fd.service.OrderService;
+import com.ihorcompany.fd.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -15,24 +17,48 @@ import java.security.Principal;
 public class OrderController {
 
     private OrderService orderService;
+    private UserService userService;
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Autowired
     public void setOrderService(OrderService orderService) {
         this.orderService = orderService;
     }
 
+
     @GetMapping("/orderPage")
-    public String orderPage(Principal principal, Model model){
-        OrderDTO orderDTO = new OrderDTO();
+    public String orderPage(Principal principal, Model model, @RequestParam(defaultValue = "-1") Long id) {
         model.addAttribute("ordername", principal.getName());
-        model.addAttribute("orderDTO", orderDTO);
+        model.addAttribute("order", orderService.findById(id).orElseGet(Order::new));
         return "order";
     }
 
     @PostMapping("/order")
-    public String order(@ModelAttribute(name = "orderDTO")OrderDTO orderDTO){
-        orderService.saveNewOrder(orderDTO);
-        System.out.println("Order "+orderDTO+" successfully created");
-        return "index";
+    public String order(@ModelAttribute Order newOrder, Principal principal) {
+        System.out.println("OrderId = "+newOrder.getId());
+        if (newOrder.getId() != null) {
+            Order order = orderService.findById(newOrder.getId()).orElseThrow(OrderNotFoundException::new);
+
+            BeanUtils.copyProperties(newOrder, order);
+            order.setUser(userService.readByUsername(principal.getName()).orElseThrow(UserNotFoundException::new));
+            orderService.saveOrder(order);
+        }
+        else {
+            newOrder.setUser(userService.readByUsername(principal.getName()).orElseThrow(UserNotFoundException::new));
+            newOrder.setWorkpicture("pictures/work.jpg");
+            orderService.saveOrder(newOrder);
+        }
+        return "redirect:index";
+    }
+
+    @DeleteMapping("/deleteOrder/{uo.id}")
+    public String deleteOrder(@PathVariable(value = "uo.id") Long id){
+        System.out.println("Delete orderId = "+id);
+        orderService.deleteById(id);
+        return "redirect:profile";
     }
 }

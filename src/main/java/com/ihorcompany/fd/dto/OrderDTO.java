@@ -1,12 +1,17 @@
 package com.ihorcompany.fd.dto;
 
+import java.sql.Date;
+
 public class OrderDTO {
 
     private String ordername;
     private Double payment;
     private Integer dayamount;
     private Integer workersamount;
+    private String description;
+    private String workpicture;
     private String username;
+    private Date date;
 
 
     //password
@@ -99,6 +104,30 @@ public class OrderDTO {
         this.alreadyExist = alreadyExist;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getWorkpicture() {
+        return workpicture;
+    }
+
+    public void setWorkpicture(String workpicture) {
+        this.workpicture = workpicture;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     @Override
     public String toString() {
         return "OrderDTO{" +
@@ -106,6 +135,9 @@ public class OrderDTO {
                 ", payment=" + payment +
                 ", dayamount=" + dayamount +
                 ", workersamount=" + workersamount +
+                ", description='" + description + '\'' +
+                ", workpicture='" + workpicture + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 }

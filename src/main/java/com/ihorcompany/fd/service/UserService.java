@@ -12,13 +12,11 @@ public interface UserService {
     void create(User user);
     Optional<User> readById(Long id);
     Optional<User> readByUsername(String username);
-    User update(User user);
+    User update(UserDTO user);
     void deleteById(Long id);
     void deleteByUsername(String username);
     List<User> findAll();
     void registerNewUser(UserDTO userDTO);
     List<User> findAll(Pageable pageable);
-    void setUserInfoById(Long userId, String username, String firstname, String secondname,
-                         String email, String password, String phone, int age, String profession,
-                         String profilePicture, String hobbies);
+
 }

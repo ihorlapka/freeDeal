@@ -16,5 +16,7 @@ public interface OrderService {
     void deleteById(Long id);
     void deleteByOrderName(String orderName);
     List<Order> findAll(Pageable pageable);
+    Order update(Order order);
+    Order saveOrder(Order order);
 
 }

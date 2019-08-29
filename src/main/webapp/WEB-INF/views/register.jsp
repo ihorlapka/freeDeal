@@ -11,25 +11,31 @@
         <div>
             <span class="error">${userDTO.alreadyExistsError}</span>
         </div>
+        <br>
         <div>
-            <form:input path="username" placeholder="usernme"/>
+            <form:input path="username" placeholder="Username"/>
             <span class="error">${userDTO.invalidUsername}</span>
         </div>
+        <br>
         <div>
-            <form:input path="email" placeholder="email"/>
+            <form:input path="email" placeholder="Email"/>
             <span class="error">${userDTO.invalidEmail}</span>
         </div>
+        <br>
         <div>
-            <form:password path="password" placeholder="password"/>
+            <form:password path="password" placeholder="Password"/>
             <span class="error">${userDTO.invalidPassword}</span>
         </div>
+        <br>
         <div>
-            <form:password path="repeatPassword" placeholder="repeat password"/>
+            <form:password path="repeatPassword" placeholder="Repeat Password"/>
             <span class="error">${userDTO.passwordsDoNotMatch}</span>
         </div>
+        <br>
         <div>
             <input type="submit" value="Register">
         </div>
+        <br>
         <div>
             <a href="/index">Back to home page</a>
         </div>

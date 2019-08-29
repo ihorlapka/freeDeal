@@ -106,9 +106,32 @@
 .profile-button{
     position: absolute;
     top: 35px;
-    right: 200px;
+    right: 225px;
 }
 
 body{
     background-color: grey;
+}
+
+.avatar{
+    position: absolute;
+    top: 20%;
+    right: 4%;
+    border-radius: 100px;
+}
+
+.userPage{
+    position: absolute;
+    top: 0;
+    left: 10%;
+}
+
+.orderPage{
+    position: absolute;
+    top: 0;
+    left: 50%;
+}
+
+.grey{
+    color: grey;
 }

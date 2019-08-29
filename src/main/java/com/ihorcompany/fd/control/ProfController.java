@@ -1,5 +1,6 @@
 package com.ihorcompany.fd.control;
 
+import com.ihorcompany.fd.dto.UserDTO;
 import com.ihorcompany.fd.exception.StorageFileNotFoundException;
 import com.ihorcompany.fd.exception.UserNotFoundException;
 import com.ihorcompany.fd.model.User;
@@ -51,7 +52,7 @@ public class ProfController {
     @GetMapping("/profile")
     public String profile(Principal principal, Model model,
                           @RequestParam(name = "page", required = false, defaultValue = "1") String page,
-                          @RequestParam(name = "sort", required = false, defaultValue = "ordername") String sort){
+                          @RequestParam(name = "sort", required = false, defaultValue = "id") String sort){
         model.addAttribute("user", userService.readByUsername(principal.getName()).orElseThrow(UserNotFoundException::new));
         model.addAttribute("files", storageService.loadAll()
                 .map(path -> MvcUriComponentsBuilder.fromMethodName(ProfController.class,
@@ -62,7 +63,8 @@ public class ProfController {
     }
 
     @PostMapping("/updateUser")
-    public String updateUser(@ModelAttribute(name = "user") User user){
+    public String updateUser(@ModelAttribute(name = "user") UserDTO user, Principal principal){
+        user.setUsername(principal.getName());
         userService.update(user);
         return "redirect:/profile";
     }
@@ -86,5 +88,11 @@ public class ProfController {
     @ExceptionHandler(StorageFileNotFoundException.class)
     public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException e){
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/addFriend")
+    public String addFriend(@RequestParam(value = "u", required = false)User user , Principal principal){
+        userService.readByUsername(principal.getName()).orElseThrow(UserNotFoundException::new).addUser(user);
+        return "redirect:/index";
     }
 }

@@ -8,9 +8,16 @@ import org.springframework.validation.annotation.Validated;
 public class UserDTO {
 
     private String username;
+    private String firstname;
+    private String secondname;
     private String email;
     private String password;
+    private String phone;
     private String repeatPassword;
+    private Integer age;
+    private String profession;
+    private String profilepicture;
+    private String hobbies;
 
     private String alreadyExistsError;
     private String invalidEmail;
@@ -43,6 +50,14 @@ public class UserDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public String getRepeatPassword() {
@@ -91,6 +106,54 @@ public class UserDTO {
 
     public void setPasswordsDoNotMatch(String passwordsDoNotMatch) {
         this.passwordsDoNotMatch = passwordsDoNotMatch;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getSecondname() {
+        return secondname;
+    }
+
+    public void setSecondname(String secondname) {
+        this.secondname = secondname;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
+
+    public String getProfilepicture() {
+        return profilepicture;
+    }
+
+    public void setProfilepicture(String profilepicture) {
+        this.profilepicture = profilepicture;
+    }
+
+    public String getHobbies() {
+        return hobbies;
+    }
+
+    public void setHobbies(String hobbies) {
+        this.hobbies = hobbies;
     }
 
     @Override

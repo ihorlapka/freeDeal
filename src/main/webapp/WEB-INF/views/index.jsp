@@ -6,6 +6,7 @@
 <head>
     <title>FreeDeal</title>
     <link href="css/styleindex.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/slick.css"/>
 </head>
 <body>
     <header class="header">
@@ -13,7 +14,6 @@
         <div class="header-banner">
             <img src="pictures/fd_header1.jpg" alt="banner" width="1366">
         </div>
-
 <sec:authorize access="isAnonymous()">
     <form action="/loginProcessing" method="post">
         <span id="error">${error}</span>
@@ -44,44 +44,79 @@
     </div>
     <div class="order-button">
         <a href="/orderPage">
-            <button>Order</button>
+            <button>New Order</button>
         </a>
     </div>
+<%--    <div class="slider">--%>
+<%--        <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaBFljNDaaIcs-qLaenV7B2vYt82DE52Y1jiOWaORYo_W-HdsxzA" width="500" height="350"></div>--%>
+<%--        <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJO3U_e3juHjiiW2IrqfztQy0BofsIu1lHDRh8Wf7erJtixU-e" width="500" height="350"></div>--%>
+<%--        <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaBFljNDaaIcs-qLaenV7B2vYt82DE52Y1jiOWaORYo_W-HdsxzA" width="500" height="350"></div>--%>
+<%--        <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJO3U_e3juHjiiW2IrqfztQy0BofsIu1lHDRh8Wf7erJtixU-e" width="500" height="350"></div>--%>
+<%--        <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaBFljNDaaIcs-qLaenV7B2vYt82DE52Y1jiOWaORYo_W-HdsxzA" width="500" height="350"></div>--%>
+<%--        <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJO3U_e3juHjiiW2IrqfztQy0BofsIu1lHDRh8Wf7erJtixU-e" width="500" height="350"></div>--%>
+<%--    </div>--%>
     <div class="tables-position">
         <table border="1" width="20%" cellpadding="2" class="table-users">
             <tr>
                 <th>Picture</th>
-                <th><a href="/index?page=${param.get("page")}&sort=username">Username</a> </th>
-                <th><a href="/index?page=${param.get("page")}&sort=email">Email</a> </th>
+                <th><a href="/index?userPage=${param.get("userPage")}&userSort=username">Username</a> </th>
+                <th><a href="/index?userPage=${param.get("userPage")}&userSort=email">Email</a> </th>
             </tr>
         <c:forEach items="${users}" var="u">
             <tr>
                 <td><img src="${u.profilepicture}" alt="Profile Picture" height="100" width="100"></td>
-                <td>${u.username}</td>
+                <td>${u.username}
+                    <a href="/addFriend">
+                        <button>+ friend</button>
+                    </a>
+                </td>
                 <td>${u.email}</td>
             </tr>
         </c:forEach>
         </table>
+        <div class="userPage">
+            <a href="/index?userPage=1&userSort=${param.get("userSort")}">1</a>
+            <a href="/index?userPage=2&userSort=${param.get("userSort")}">2</a>
+            <a href="/index?userPage=3&userSort=${param.get("userSort")}">3</a>
+            <a href="/index?userPage=4&userSort=${param.get("userSort")}">4</a>
+            <a href="/index?userPage=5&userSort=${param.get("userSort")}">5</a>
+        </div>
         <table border="1" width="50%" cellpadding="2" class="table-orders">
             <tr>
                 <th>Picture</th>
-                <th><a href="/index?page=${param.get("page")}&sort=ordername">Ordername</a> </th>
-                <th><a href="/index?page=${param.get("page")}&sort=payment">Payment</a> </th>
-                <th><a href="/index?page=${param.get("page")}&sort=dayamount">Days</a> </th>
-                <th><a href="/index?page=${param.get("page")}&sort=workersamount">Workers</a> </th>
+                <th><a href="/index?orderPage=${param.get("orderPage")}&orderSort=ordername">Ordername</a> </th>
+                <th><a href="/index?orderPage=${param.get("orderPage")}&orderSort=payment">Payment</a> </th>
+                <th><a href="/index?orderPage=${param.get("orderPage")}&orderSort=dayamount">Days</a> </th>
+                <th><a href="/index?orderPage=${param.get("orderPage")}&orderSort=workersamount">Workers</a> </th>
             </tr>
             <c:forEach items="${orders}" var="o">
                 <tr>
                     <td><img src="${o.workpicture}" alt="Work Picture" height="100" width="100"></td>
-                    <td>${o.ordername}</td>
+                    <td>${o.ordername}
+                        <a href="/executeOrder">
+                            <button>Execute</button>
+                        </a>
+                    </td>
                     <td>${o.payment}</td>
                     <td>${o.dayamount}</td>
                     <td>${o.workersamount}</td>
                 </tr>
             </c:forEach>
         </table>
+        <div class="orderPage" >
+            <a href="/index?orderPage=1&orderSort=${param.get("orderSort")}">1</a>
+            <a href="/index?orderPage=2&orderSort=${param.get("orderSort")}">2</a>
+            <a href="/index?orderPage=3&orderSort=${param.get("orderSort")}">3</a>
+            <a href="/index?orderPage=4&orderSort=${param.get("orderSort")}">4</a>
+            <a href="/index?orderPage=5&orderSort=${param.get("orderSort")}">5</a>
+        </div>
+    </div>
+    <div>
+        <img src="${user.profilepicture}" width="150" height="150" alt="User Photo" class="avatar">
     </div>
 </sec:authorize>
-<%--    <script src="javascript/indexJS.js"></script>--%>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascript/slick.min.js"></script>
+    <script src="javascript/indexJS.js"></script>
 </body>
 </html>

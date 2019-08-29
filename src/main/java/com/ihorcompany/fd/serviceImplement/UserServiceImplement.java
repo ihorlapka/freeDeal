@@ -1,6 +1,7 @@
 package com.ihorcompany.fd.serviceImplement;
 
 import com.ihorcompany.fd.dto.UserDTO;
+import com.ihorcompany.fd.exception.UserNotFoundException;
 import com.ihorcompany.fd.model.Role;
 import com.ihorcompany.fd.model.User;
 import com.ihorcompany.fd.repository.UserRepository;
@@ -82,15 +83,17 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public User update(User user) {
-        System.out.println("User username = "+user.getUsername());
+    public User update(UserDTO userDTO) {
+        System.out.println("User username = "+userDTO.getUsername());
+        User user = readByUsername(userDTO.getUsername()).orElseThrow(UserNotFoundException::new);
+        user.setFirstname(userDTO.getFirstname());
+        user.setSecondname(userDTO.getSecondname());
+        user.setPhone(userDTO.getPhone());
+        user.setAge(userDTO.getAge());
+        user.setProfession(userDTO.getProfession());
+        user.setHobbies(userDTO.getHobbies());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
         return userRepository.save(user);
-    }
-
-    @Override
-    public void setUserInfoById(Long userId, String username, String firstname, String secondname, String email,
-                                String password, String phone, int age, String profession, String profilePicture, String hobbies) {
-        userRepository.setUserInfoById(userId,username,firstname,secondname,email,password,phone,age,profession,
-                profilePicture,hobbies);
     }
 }

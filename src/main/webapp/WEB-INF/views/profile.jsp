@@ -11,14 +11,14 @@
         <h1>My ${user.username}  profile</h1>
         <div>
             <a href="/">
-                <button>Back to index</button>
+                <button><-Back to index</button>
             </a>
         </div>
         <br>
     </header>
-    <img src="${user.profilepicture}" width="100px" height="100px">
+    <img src="${user.profilepicture}" width="200px" height="200px">
+    <div><strong>Change your profile picture</strong></div>
     <form:form modelAttribute="user" method="post" action="/updateUser">
-
         <div>
             <form:label path="firstname"><pre>First Name: </pre></form:label>
             <form:input path="firstname" placeholder="${user.firstname}"/>
@@ -33,7 +33,7 @@
         </div>
         <div>
             <form:label path="age"><pre>Age:        </pre></form:label>
-            <form:input path="age" value="${user.firstname}"/>
+            <form:input path="age" value="${user.age}"/>
         </div>
         <div>
             <form:label path="profession"><pre>Profession: </pre></form:label>
@@ -57,23 +57,37 @@
         </div>
     </form:form>
 
-    <div c:if="${message}">${message}</div>
+    <section class="multipart">
+        <div c:if="${message}">${message}</div>
+        <div>
+            <form method="post" action="/upload" enctype="multipart/form-data">
+                <label for="file"><strong>Upload your file:</strong></label>
+                <input type="file" id="file" name="file">
+                <br><br>
+                <input type="submit" value="Upload">
+                <br>
+            </form>
+        </div>
+        <div>
+            <div>
+                <strong>My files:</strong>
+                <br>
+            </div>
+            <ul>
+                <c:forEach items="${files}" var="file">
+                    <li><a href="${file}">${file}</a></li>
+                </c:forEach>
+            </ul>
+        </div>
+    </section>
     <div>
-        <form method="post" action="/upload" enctype="multipart/form-data">
-            <label for="file">File:</label>
-            <input type="file" id="file" name="file">
-            <input type="submit" value="Upload">
-        </form>
-    </div>
-    <div>
-        <ul>
-            <c:forEach items="${files}" var="file">
-                <li><a href="${file}">${file}</a></li>
-            </c:forEach>
-        </ul>
-    </div>
-    <div>
-        <table border="1" width="30" cellpadding="2" class="table-profile">
+        <table border="1" width="40%" cellpadding="2" class="table-profile">
+            <div class="new-order-button">
+                <a href="/orderPage">
+                    <button>New Order</button>
+                </a>
+            </div>
+            <h2><strong>My orders</strong></h2>
             <tr>
                 <th>Picture</th>
                 <th><a href="/profile?page=${param.get("page")}&sort=ordername">Ordername</a></th>
@@ -82,13 +96,40 @@
                 <th><a href="/profile?page=${param.get("page")}&sort=dayamount">Days</a></th>
             </tr>
             <c:forEach items="${user.orders}" var="uo">
-                <tr>${uo.workpicture}</tr>
-                <tr>${uo.ordername}</tr>
-                <tr>${uo.payment}</tr>
-                <tr>${uo.workersamount}</tr>
-                <tr>${uo.dayamount}</tr>
+                <tr>
+                    <td><img src="${uo.workpicture}" alt="Work picture" height="100" width="100"></td>
+                    <td>${uo.ordername}
+                        <br>
+                        <a href="/orderPage?id=${uo.id}">
+                            <button>edit</button>
+                        </a>
+                        <br>
+                        <a href="/deleteOrder?id=${uo.id}">
+                            <button>delete</button>
+                        </a>
+                    </td>
+                    <td>${uo.payment}</td>
+                    <td>${uo.workersamount}</td>
+                    <td>${uo.dayamount}</td>
+                </tr>
             </c:forEach>
         </table>
     </div>
+    <div>
+        <table border="1" width="25%" cellpadding="2" class="friends-profile">
+            <h3>Friends</h3>
+            <tr>
+                <th>Photo</th>
+                <th>Username</th>
+            </tr>
+            <c:forEach items="${user.friends}" var="f">
+                <tr>
+                    <td><img src="${f.profilepicture}" alt="friend" height="100" width="100"></td>
+                    <td>${f.username}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
+
 </body>
 </html>

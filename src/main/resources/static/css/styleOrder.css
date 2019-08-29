@@ -1,0 +1,17 @@
+div, h1{
+    position: relative;
+    left: 38%;
+}
+
+body{
+    background-color: grey;
+}
+
+/*.order-new{*/
+/*    position: fixed;*/
+/*    top: 25%;*/
+/*    left: 25%;*/
+/*    right: 25%;*/
+/*    bottom: 25%;*/
+/*    background-color: goldenrod;*/
+/*}*/

@@ -69,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/index")
                 .loginProcessingUrl("/loginProcessing")
-                .defaultSuccessUrl("/profile", true)
+                .defaultSuccessUrl("/profile",true)
                 .failureForwardUrl("/index?error=true")
                 .failureUrl("/index?error=true")
                 .failureHandler(loginFailureHandler())

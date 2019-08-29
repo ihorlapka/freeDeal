@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "User")
@@ -22,11 +23,21 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private String phone;
-    private int age;
+    private Integer age;
     private String profession;
     private String profilepicture;
     private String hobbies;
 
+//    private String message;
+
+
+    @OneToMany
+    private Set<User> friends;
+
+    public void addUser(User user){
+        friends.add(user);
+//        System.out.println(user.getUsername()+" successfully added to "+this.username+"'s friends");
+    }
 
 
     @Column(name = "role")
@@ -71,7 +82,6 @@ public class User implements UserDetails {
 
     public User() {
     }
-
 
     public List<Role> getRoles() {
         return roles;
@@ -137,11 +147,11 @@ public class User implements UserDetails {
         this.phone = phone;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -177,6 +187,14 @@ public class User implements UserDetails {
         this.orders = orders;
     }
 
+    public Set<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Set<User> friends) {
+        this.friends = friends;
+    }
+
 
     @Override
     public String toString() {
@@ -193,6 +211,7 @@ public class User implements UserDetails {
                 ", profilepicture='" + profilepicture + '\'' +
                 ", hobbies='" + hobbies + '\'' +
                 ", roles=" + roles +
+                ", friends=" + friends +
                 ", orders=" + orders +
                 '}';
     }

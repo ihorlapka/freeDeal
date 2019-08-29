@@ -1,7 +1,45 @@
 body{
-    background-color: wheat;
+    background-color: goldenrod;
 }
 
 h1{
     color: darkcyan;
+}
+
+.multipart{
+    position: absolute;
+    right: 3%;
+    top: 100px;
+}
+
+.table-profile{
+    position: absolute;
+    left: 22%;
+    top: 100px;
+}
+
+h2{
+    position: absolute;
+    left: 38%;
+    top: 50px;
+    color: darkcyan;
+}
+
+h3{
+    position: absolute;
+    right:  17%;
+    top: 42%;
+    color: darkcyan;
+}
+
+.friends-profile{
+    position: absolute;
+    right: 6%;
+    top: 50%;
+}
+
+.new-order-button{
+    position: absolute;
+    left: 39%;
+    top: 25px;
 }

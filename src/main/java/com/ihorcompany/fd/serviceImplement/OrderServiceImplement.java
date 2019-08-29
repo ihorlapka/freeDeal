@@ -1,9 +1,9 @@
 package com.ihorcompany.fd.serviceImplement;
 
 import com.ihorcompany.fd.dto.OrderDTO;
+import com.ihorcompany.fd.exception.OrderNotFoundException;
 import com.ihorcompany.fd.exception.UserNotFoundException;
 import com.ihorcompany.fd.model.Order;
-import com.ihorcompany.fd.model.User;
 import com.ihorcompany.fd.repository.OrderRepository;
 import com.ihorcompany.fd.repository.UserRepository;
 import com.ihorcompany.fd.service.OrderService;
@@ -62,15 +62,32 @@ public class OrderServiceImplement implements OrderService {
 
     @Override
     public void saveNewOrder(OrderDTO orderDTO) {
-        Order order = new Order();
+        Order order = findByOrderName(orderDTO.getOrdername()).orElseThrow(OrderNotFoundException::new);
         order.setOrdername(orderDTO.getOrdername());
         order.setPayment(orderDTO.getPayment());
         order.setDayamount(orderDTO.getDayamount());
         order.setWorkersamount(orderDTO.getWorkersamount());
-        order.setDescription("No description");
+        order.setDescription(orderDTO.getDescription());
         order.setWorkpicture("pictures/work.jpg");
+        order.setDate(orderDTO.getDate());
         System.out.println(orderDTO.getUsername());
         order.setUser(userRepository.findUserByUsername(orderDTO.getUsername()).orElseThrow(UserNotFoundException::new));
         orderRepository.save(order);
+    }
+
+    @Override
+    public Order update(Order oldOrder) {
+        Order order = findByOrderName(oldOrder.getOrdername()).orElseThrow(OrderNotFoundException::new);
+        order.setPayment(oldOrder.getPayment());
+        order.setDayamount(oldOrder.getDayamount());
+        order.setWorkersamount(oldOrder.getWorkersamount());
+        order.setDescription(oldOrder.getDescription());
+        order.setWorkpicture(oldOrder.getWorkpicture());
+        return orderRepository.save(order);
+    }
+
+    @Override
+    public Order saveOrder(Order order) {
+        return orderRepository.save(order);
     }
 }
