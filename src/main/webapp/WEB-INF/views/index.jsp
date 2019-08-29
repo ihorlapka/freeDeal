@@ -66,9 +66,12 @@
             <tr>
                 <td><img src="${u.profilepicture}" alt="Profile Picture" height="100" width="100"></td>
                 <td>${u.username}
-                    <a href="/addFriend">
-                        <button>+ friend</button>
-                    </a>
+                    <form method="post" action="/addFriend/${u.id}">
+                        <button type="submit">Add friend</button>
+                    </form>
+<%--                    <a href="/addFriend/${u.id}">--%>
+<%--                        <button>+ friend</button>--%>
+<%--                    </a>--%>
                 </td>
                 <td>${u.email}</td>
             </tr>

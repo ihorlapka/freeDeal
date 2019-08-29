@@ -34,10 +34,10 @@ public class User implements UserDetails {
     @OneToMany
     private Set<User> friends;
 
-    public void addUser(User user){
-        friends.add(user);
-//        System.out.println(user.getUsername()+" successfully added to "+this.username+"'s friends");
-    }
+//    public void addUser(User user){
+//        friends.add(user);
+//       System.out.println(user.getUsername()+" successfully added to "+this.username+"'s friends");
+//    }
 
 
     @Column(name = "role")

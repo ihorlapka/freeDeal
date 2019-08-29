@@ -55,10 +55,10 @@ public class OrderController {
         return "redirect:index";
     }
 
-    @DeleteMapping("/deleteOrder/{uo.id}")
-    public String deleteOrder(@PathVariable(value = "uo.id") Long id){
-        System.out.println("Delete orderId = "+id);
+    @PostMapping("/deleteOrder/{id}")
+    public String deleteOrder(@PathVariable Long id){
+        System.out.println("\nOrder with Id = "+id+" successfully deleted\n");
         orderService.deleteById(id);
-        return "redirect:profile";
+        return "redirect:/profile";
     }
 }

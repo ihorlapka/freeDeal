@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -90,9 +91,11 @@ public class ProfController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/addFriend")
-    public String addFriend(@RequestParam(value = "u", required = false)User user , Principal principal){
-        userService.readByUsername(principal.getName()).orElseThrow(UserNotFoundException::new).addUser(user);
+    @PostMapping("/addFriend/{id}")
+    public String addFriend(@PathVariable(value = "id") User user, Principal principal){
+        System.out.println("\nUserId = "+user.getId()+" Username = "+user.getUsername()+
+                ", added to "+principal.getName()+" friends\n");
+        userService.readByUsername(principal.getName()).orElseThrow(UserNotFoundException::new).getFriends().add(user);
         return "redirect:/index";
     }
 }
