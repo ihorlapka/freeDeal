@@ -3,6 +3,7 @@ package com.ihorcompany.fd.control;
 import com.ihorcompany.fd.dto.UserDTO;
 import com.ihorcompany.fd.exception.StorageFileNotFoundException;
 import com.ihorcompany.fd.exception.UserNotFoundException;
+import com.ihorcompany.fd.model.Order;
 import com.ihorcompany.fd.model.User;
 import com.ihorcompany.fd.service.OrderService;
 import com.ihorcompany.fd.service.StorageService;
@@ -21,7 +22,6 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -49,22 +49,21 @@ public class ProfController {
     }
 
 
-
     @GetMapping("/profile")
     public String profile(Principal principal, Model model,
                           @RequestParam(name = "page", required = false, defaultValue = "1") String page,
-                          @RequestParam(name = "sort", required = false, defaultValue = "id") String sort){
+                          @RequestParam(name = "sort", required = false, defaultValue = "id") String sort) {
         model.addAttribute("user", userService.readByUsername(principal.getName()).orElseThrow(UserNotFoundException::new));
         model.addAttribute("files", storageService.loadAll()
                 .map(path -> MvcUriComponentsBuilder.fromMethodName(ProfController.class,
                         "serveFile", path.getFileName().toString()).build().toString()).collect(Collectors.toList()));
-        model.addAttribute("orders", orderService.findAll(PageRequest.of(Integer.parseInt(page)-1, TOTAL, Sort.by(sort))));
+        model.addAttribute("orders", orderService.findAll(PageRequest.of(Integer.parseInt(page) - 1, TOTAL, Sort.by(sort))));
         System.out.println(userService.readByUsername(principal.getName()));
         return "profile";
     }
 
     @PostMapping("/updateUser")
-    public String updateUser(@ModelAttribute(name = "user") UserDTO user, Principal principal){
+    public String updateUser(@ModelAttribute(name = "user") UserDTO user, Principal principal) {
         user.setUsername(principal.getName());
         userService.update(user);
         return "redirect:/profile";
@@ -72,30 +71,51 @@ public class ProfController {
 
     @GetMapping("/profile/{filename:.+}")
     @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename){
+    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
         Resource file = storageService.loadAsResource(filename);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment: filename=\""+file.getFilename()+"\"").body(file);
+                "attachment: filename=\"" + file.getFilename() + "\"").body(file);
     }
 
     @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("file")MultipartFile file, RedirectAttributes redirectAttributes){
+    public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         storageService.store(file);
-        redirectAttributes.addFlashAttribute("message", "Your file "+file.getOriginalFilename()+" " +
+        redirectAttributes.addFlashAttribute("message", "Your file " + file.getOriginalFilename() + " " +
                 "is successfully uploaded");
         return "redirect:/profile";
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)
-    public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException e){
+    public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException e) {
         return ResponseEntity.notFound().build();
     }
 
     @PostMapping("/addFriend/{id}")
-    public String addFriend(@PathVariable(value = "id") User user, Principal principal){
-        System.out.println("\nUserId = "+user.getId()+" Username = "+user.getUsername()+
-                ", added to "+principal.getName()+" friends\n");
-        userService.readByUsername(principal.getName()).orElseThrow(UserNotFoundException::new).getFriends().add(user);
+    public String addFriend(@PathVariable(value = "id") User user, Principal principal) {
+        System.out.println("\nUserId = " + user.getId() + " Username = " + user.getUsername() +
+                ", added to " + principal.getName() + " friends\n");
+
+        userService.create(
+                userService.readByUsername(principal.getName())
+                        .map(u -> {
+                            u.getFriends().add(user);
+                            user.getFriends().add(u);
+                            return u;
+                        }).orElseThrow(UserNotFoundException::new)
+        );
         return "redirect:/index";
     }
+
+//    @PostMapping("/executeOrder/{id}")
+//    public String execute(@PathVariable(name = "id") Order order, Principal principal){
+//        User user = userService.readByUsername(principal.getName()).orElseThrow(UserNotFoundException::new);
+//        System.out.println(user.getUsername()+" is going to commit "+order.getOrdername());
+//        userService.create(
+//                userService.readByUsername(principal.getName()).map(u-> {
+//                    u.getOrdersExecuting().add(order);
+//
+//                    return u;
+//                }).orElseThrow(UserNotFoundException::new));
+//        return "redirect:/index";
+//    }
 }

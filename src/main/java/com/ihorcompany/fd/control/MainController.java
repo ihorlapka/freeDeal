@@ -77,5 +77,4 @@ public class MainController {
         userService.registerNewUser(userDTO);
         return "index";
     }
-
 }

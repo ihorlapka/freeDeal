@@ -3,10 +3,12 @@ package com.ihorcompany.fd.control;
 import com.ihorcompany.fd.exception.OrderNotFoundException;
 import com.ihorcompany.fd.exception.UserNotFoundException;
 import com.ihorcompany.fd.model.Order;
+import com.ihorcompany.fd.model.User;
 import com.ihorcompany.fd.service.OrderService;
 import com.ihorcompany.fd.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -61,4 +63,6 @@ public class OrderController {
         orderService.deleteById(id);
         return "redirect:/profile";
     }
+
+
 }

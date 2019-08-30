@@ -28,16 +28,12 @@ public class User implements UserDetails {
     private String profilepicture;
     private String hobbies;
 
-//    private String message;
-
 
     @OneToMany
     private Set<User> friends;
 
-//    public void addUser(User user){
-//        friends.add(user);
-//       System.out.println(user.getUsername()+" successfully added to "+this.username+"'s friends");
-//    }
+    @OneToMany
+    private Set<Order> ordersExecuting;
 
 
     @Column(name = "role")
@@ -195,6 +191,13 @@ public class User implements UserDetails {
         this.friends = friends;
     }
 
+    public Set<Order> getOrdersExecuting() {
+        return ordersExecuting;
+    }
+
+    public void setOrdersExecuting(Set<Order> ordersExecuting) {
+        this.ordersExecuting = ordersExecuting;
+    }
 
     @Override
     public String toString() {
@@ -211,7 +214,7 @@ public class User implements UserDetails {
                 ", profilepicture='" + profilepicture + '\'' +
                 ", hobbies='" + hobbies + '\'' +
                 ", roles=" + roles +
-                ", friends=" + friends +
+//                ", friends=" + friends +
                 ", orders=" + orders +
                 '}';
     }

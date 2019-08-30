@@ -104,9 +104,6 @@
                             <button>edit</button>
                         </a>
                         <br>
-<%--                        <a href="/deleteOrder?id=${uo.id}">--%>
-<%--                            <button>delete</button>--%>
-<%--                        </a>--%>
                         <form action="/deleteOrder/${uo.id}" method="post">
                             <button type="submit">delete</button>
                         </form>

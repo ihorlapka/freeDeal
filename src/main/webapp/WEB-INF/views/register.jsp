@@ -39,7 +39,6 @@
         <div>
             <a href="/index">Back to home page</a>
         </div>
-
     </form:form>
 </body>
 </html>

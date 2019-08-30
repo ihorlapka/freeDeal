@@ -48,12 +48,12 @@
         </a>
     </div>
 <%--    <div class="slider">--%>
-<%--        <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaBFljNDaaIcs-qLaenV7B2vYt82DE52Y1jiOWaORYo_W-HdsxzA" width="500" height="350"></div>--%>
-<%--        <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJO3U_e3juHjiiW2IrqfztQy0BofsIu1lHDRh8Wf7erJtixU-e" width="500" height="350"></div>--%>
-<%--        <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaBFljNDaaIcs-qLaenV7B2vYt82DE52Y1jiOWaORYo_W-HdsxzA" width="500" height="350"></div>--%>
-<%--        <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJO3U_e3juHjiiW2IrqfztQy0BofsIu1lHDRh8Wf7erJtixU-e" width="500" height="350"></div>--%>
-<%--        <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaBFljNDaaIcs-qLaenV7B2vYt82DE52Y1jiOWaORYo_W-HdsxzA" width="500" height="350"></div>--%>
-<%--        <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJO3U_e3juHjiiW2IrqfztQy0BofsIu1lHDRh8Wf7erJtixU-e" width="500" height="350"></div>--%>
+<%--        <div><img src="slide/m1.jpg" width="500" height="350"></div>--%>
+<%--        <div><img src="slide/m2.jpg" width="500" height="350"></div>--%>
+<%--        <div><img src="slide/m3.jpg" width="500" height="350"></div>--%>
+<%--        <div><img src="slide/m4.jpg" width="500" height="350"></div>--%>
+<%--        <div><img src="slide/m5.jpg" width="500" height="350"></div>--%>
+<%--        <div><img src="slide/m6.jpg" width="500" height="350"></div>--%>
 <%--    </div>--%>
     <div class="tables-position">
         <table border="1" width="20%" cellpadding="2" class="table-users">
@@ -96,7 +96,7 @@
                 <tr>
                     <td><img src="${o.workpicture}" alt="Work Picture" height="100" width="100"></td>
                     <td>${o.ordername}
-                        <a href="/executeOrder">
+                        <a href="/executeOrder/${o.id}">
                             <button>Execute</button>
                         </a>
                     </td>
