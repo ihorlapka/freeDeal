@@ -67,11 +67,8 @@
                 <td><img src="${u.profilepicture}" alt="Profile Picture" height="100" width="100"></td>
                 <td>${u.username}
                     <form method="post" action="/addFriend/${u.id}">
-                        <button type="submit">Add friend</button>
+                        <button type="submit">+ friend</button>
                     </form>
-<%--                    <a href="/addFriend/${u.id}">--%>
-<%--                        <button>+ friend</button>--%>
-<%--                    </a>--%>
                 </td>
                 <td>${u.email}</td>
             </tr>
@@ -91,18 +88,20 @@
                 <th><a href="/index?orderPage=${param.get("orderPage")}&orderSort=payment">Payment</a> </th>
                 <th><a href="/index?orderPage=${param.get("orderPage")}&orderSort=dayamount">Days</a> </th>
                 <th><a href="/index?orderPage=${param.get("orderPage")}&orderSort=workersamount">Workers</a> </th>
+                <th>Status</th>
             </tr>
             <c:forEach items="${orders}" var="o">
                 <tr>
                     <td><img src="${o.workpicture}" alt="Work Picture" height="100" width="100"></td>
                     <td>${o.ordername}
-                        <a href="/executeOrder/${o.id}">
-                            <button>Execute</button>
-                        </a>
+                        <form method="post" action="/executeOrder/${o.id}">
+                            <button type="submit">Commit</button>
+                        </form>
                     </td>
                     <td>${o.payment}</td>
                     <td>${o.dayamount}</td>
                     <td>${o.workersamount}</td>
+                    <td>${o.status}</td>
                 </tr>
             </c:forEach>
         </table>

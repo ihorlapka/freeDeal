@@ -58,6 +58,7 @@
     color: dodgerblue;
     background-color: beige;
     opacity: 0.8;
+    border-radius: 10px;
 }
 
 .table-orders{
@@ -67,6 +68,7 @@
     top: 30px;
     left: 350px;
     opacity: 0.8;
+    border-radius: 10px;
 }
 
 .error{

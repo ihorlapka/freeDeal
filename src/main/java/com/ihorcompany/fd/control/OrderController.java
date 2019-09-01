@@ -3,12 +3,12 @@ package com.ihorcompany.fd.control;
 import com.ihorcompany.fd.exception.OrderNotFoundException;
 import com.ihorcompany.fd.exception.UserNotFoundException;
 import com.ihorcompany.fd.model.Order;
+import com.ihorcompany.fd.model.OrderStatus;
 import com.ihorcompany.fd.model.User;
 import com.ihorcompany.fd.service.OrderService;
 import com.ihorcompany.fd.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -64,5 +64,26 @@ public class OrderController {
         return "redirect:/profile";
     }
 
+    @PostMapping("/executeOrder/{id}")
+    public String execute(@PathVariable(name = "id") Order order, Principal principal){
+        User user = userService.readByUsername(principal.getName()).orElseThrow(UserNotFoundException::new);
+        System.out.println("\n"+user.getUsername()+" is going to commit "+order.getOrdername()+"\n");
+        userService.create(
+                userService.readByUsername(user.getUsername()).map(u-> {
+                    u.getOrdersExecuting().add(order);
+                    order.setStatus(OrderStatus.PROCESSING);
+                    order.setExecutingUser(user);
+                    orderService.saveOrder(order);
+                    return u;
+                }).orElseThrow(UserNotFoundException::new));
+        return "redirect:/index";
+    }
 
+    @PostMapping("/orderDone/{id}")
+    public String  oderDone(@PathVariable(value = "id") Order order, Principal principal){
+        System.out.println("\nNow order "+order.getOrdername()+" is accomplished!\n");
+        order.setStatus(OrderStatus.ACCOMPLISHED);
+        orderService.saveOrder(order);
+        return "redirect:/profile";
+    }
 }

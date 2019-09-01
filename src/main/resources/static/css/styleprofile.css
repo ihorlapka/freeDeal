@@ -1,5 +1,5 @@
 body{
-    background-color: goldenrod;
+    background-color: lightblue;
 }
 
 h1{
@@ -8,14 +8,17 @@ h1{
 
 .multipart{
     position: absolute;
-    right: 3%;
+    right: 0;
     top: 100px;
 }
 
 .table-profile{
     position: absolute;
-    left: 22%;
+    left: 19%;
     top: 100px;
+    background-color: antiquewhite;
+    opacity: 0.8;
+    border-radius: 10px;
 }
 
 h2{
@@ -25,21 +28,44 @@ h2{
     color: darkcyan;
 }
 
-h3{
+.h3-1{
     position: absolute;
     right:  17%;
-    top: 42%;
+    top: 5%;
     color: darkcyan;
 }
 
 .friends-profile{
     position: absolute;
-    right: 6%;
+    right: 3%;
     top: 50%;
+    background-color: antiquewhite;
+    opacity: 0.8;
+    border-radius: 10px;
 }
 
+.h3-3{
+    position: absolute;
+    right: 15%;
+    top: 40%;
+    color: darkcyan;
+}
 .new-order-button{
     position: absolute;
     left: 39%;
     top: 25px;
+}
+
+.order-execute{
+    position: absolute;
+    left: 19%;
+    background-color: antiquewhite;
+    border-radius: 10px;
+}
+
+.h3-2{
+    position: absolute;
+    right:  50%;
+    top: 84%;
+    color: darkcyan;
 }

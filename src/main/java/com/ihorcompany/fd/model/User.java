@@ -32,7 +32,7 @@ public class User implements UserDetails {
     @OneToMany
     private Set<User> friends;
 
-    @OneToMany
+    @OneToMany(mappedBy = "executingUser", fetch = FetchType.EAGER)
     private Set<Order> ordersExecuting;
 
 

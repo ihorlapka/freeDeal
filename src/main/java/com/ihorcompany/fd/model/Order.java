@@ -16,6 +16,11 @@ public class Order {
     private Integer dayamount;
     private String description;
     private String workpicture;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+
     @Basic
     private Date date;
 
@@ -23,7 +28,12 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "executing_user_id")
+    private User executingUser;
+
     public Order() {
+        status = OrderStatus.ACTIVE;
     }
 
     public Long getId() {
@@ -98,6 +108,21 @@ public class Order {
         this.user = user;
     }
 
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public User getExecutingUser() {
+        return executingUser;
+    }
+
+    public void setExecutingUser(User executingUser) {
+        this.executingUser = executingUser;
+    }
 
     @Override
     public String toString() {

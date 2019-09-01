@@ -3,7 +3,6 @@ package com.ihorcompany.fd.control;
 import com.ihorcompany.fd.dto.UserDTO;
 import com.ihorcompany.fd.exception.StorageFileNotFoundException;
 import com.ihorcompany.fd.exception.UserNotFoundException;
-import com.ihorcompany.fd.model.Order;
 import com.ihorcompany.fd.model.User;
 import com.ihorcompany.fd.service.OrderService;
 import com.ihorcompany.fd.service.StorageService;
@@ -51,13 +50,16 @@ public class ProfController {
 
     @GetMapping("/profile")
     public String profile(Principal principal, Model model,
-                          @RequestParam(name = "page", required = false, defaultValue = "1") String page,
-                          @RequestParam(name = "sort", required = false, defaultValue = "id") String sort) {
+                          @RequestParam(name = "pageMyOrder", required = false, defaultValue = "1") String pageMyOrder,
+                          @RequestParam(name = "sortMyOrder", required = false, defaultValue = "id") String sortMyOrder,
+                          @RequestParam(name = "pageExecOrder", required = false, defaultValue = "1") String pageExecOrder,
+                          @RequestParam(name = "sortExecOrder", required = false, defaultValue = "id") String sortExecOrder) {
         model.addAttribute("user", userService.readByUsername(principal.getName()).orElseThrow(UserNotFoundException::new));
         model.addAttribute("files", storageService.loadAll()
                 .map(path -> MvcUriComponentsBuilder.fromMethodName(ProfController.class,
                         "serveFile", path.getFileName().toString()).build().toString()).collect(Collectors.toList()));
-        model.addAttribute("orders", orderService.findAll(PageRequest.of(Integer.parseInt(page) - 1, TOTAL, Sort.by(sort))));
+        model.addAttribute("orders", orderService.findAll(PageRequest.of(Integer.parseInt(pageMyOrder) - 1, TOTAL, Sort.by(sortMyOrder))));
+        model.addAttribute("orders", orderService.findAll(PageRequest.of(Integer.parseInt(pageExecOrder) - 1, TOTAL, Sort.by(sortExecOrder))));
         System.out.println(userService.readByUsername(principal.getName()));
         return "profile";
     }
@@ -101,21 +103,20 @@ public class ProfController {
                             u.getFriends().add(user);
                             user.getFriends().add(u);
                             return u;
-                        }).orElseThrow(UserNotFoundException::new)
-        );
+                        }).orElseThrow(UserNotFoundException::new));
         return "redirect:/index";
     }
 
-//    @PostMapping("/executeOrder/{id}")
-//    public String execute(@PathVariable(name = "id") Order order, Principal principal){
-//        User user = userService.readByUsername(principal.getName()).orElseThrow(UserNotFoundException::new);
-//        System.out.println(user.getUsername()+" is going to commit "+order.getOrdername());
-//        userService.create(
-//                userService.readByUsername(principal.getName()).map(u-> {
-//                    u.getOrdersExecuting().add(order);
-//
-//                    return u;
-//                }).orElseThrow(UserNotFoundException::new));
-//        return "redirect:/index";
-//    }
+    @PostMapping("/deleteFriend/{id}")
+    public String deleteFriend(@PathVariable(value = "id") User user, Principal principal){
+        System.out.println("\n"+user.getUsername()+" is deleted from "+principal.getName()+"'s friends");
+        userService.create(
+                userService.readByUsername(principal.getName()).map(u -> {
+                    u.getFriends().remove(user);
+                    user.getFriends().remove(u);
+                    return u;
+                }).orElseThrow(UserNotFoundException::new));
+        return "redirect:/profile";
+    }
+
 }

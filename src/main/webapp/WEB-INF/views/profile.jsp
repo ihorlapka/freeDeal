@@ -81,19 +81,21 @@
         </div>
     </section>
     <div>
-        <table border="1" width="40%" cellpadding="2" class="table-profile">
+        <table border="1" width="50%" cellpadding="2" class="table-profile">
             <div class="new-order-button">
                 <a href="/orderPage">
                     <button>New Order</button>
                 </a>
             </div>
-            <h2><strong>My orders</strong></h2>
+            <h2 class="h3-1"><strong>My orders</strong></h2>
             <tr>
                 <th>Picture</th>
-                <th><a href="/profile?page=${param.get("page")}&sort=ordername">Ordername</a></th>
-                <th><a href="/profile?page=${param.get("page")}&sort=payment">Payment</a></th>
-                <th><a href="/profile?page=${param.get("page")}&sort=workersamount">Workers</a></th>
-                <th><a href="/profile?page=${param.get("page")}&sort=dayamount">Days</a></th>
+                <th><a href="/profile?pageMyOrder=${param.get("pageMyOrder")}&sortMyOrder=ordername">Ordername</a></th>
+                <th><a href="/profile?pageMyOrder=${param.get("pageMyOrder")}&sortMyOrder=payment">Payment</a></th>
+                <th><a href="/profile?pageMyOrder=${param.get("pageMyOrder")}&sortMyOrder=workersamount">Workers</a></th>
+                <th><a href="/profile?pageMyOrder=${param.get("pageMyOrder")}&sortMyOrder=dayamount">Days</a></th>
+                <th><a href="/profile?pageMyOrder=${param.get("pageMyOrder")}&sortMyOrder=date">Date</a></th>
+                <th><a href="/profile?pageMyOrder=${param.get("pageMyOrder")}&sortMyOrder=status">Status</a></th>
             </tr>
             <c:forEach items="${user.orders}" var="uo">
                 <tr>
@@ -111,13 +113,15 @@
                     <td>${uo.payment}</td>
                     <td>${uo.workersamount}</td>
                     <td>${uo.dayamount}</td>
+                    <td>${uo.date}</td>
+                    <td>${uo.status}</td>
                 </tr>
             </c:forEach>
         </table>
     </div>
     <div>
         <table border="1" width="25%" cellpadding="2" class="friends-profile">
-            <h3>Friends</h3>
+            <h3 class="h3-3">Friends</h3>
             <tr>
                 <th>Photo</th>
                 <th>Username</th>
@@ -125,11 +129,46 @@
             <c:forEach items="${user.friends}" var="f">
                 <tr>
                     <td><img src="${f.profilepicture}" alt="friend" height="100" width="100"></td>
-                    <td>${f.username}</td>
+                    <td>${f.username}
+                        <form action="/sendMessage/${f.id}" method="post">
+                            <button type="submit">message</button>
+                        </form>
+                        <form action="/deleteFriend/${f.id}" method="post">
+                            <button type="submit">- friend</button>
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
     </div>
-
+    <div>
+        <table border="1" width="50%" cellpadding="2" class="order-execute">
+            <h2 class="h3-2"><strong>Orders witch has to be executed</strong></h2>
+            <tr>
+                <th>Picture</th>
+                <th><a href="/profile?pageExecOrder=${param.get("pageExecOrder")}&sortExecOrder=ordername">Ordername</a></th>
+                <th><a href="/profile?pageExecOrder=${param.get("pageExecOrder")}&sortExecOrder=payment">Payment</a></th>
+                <th><a href="/profile?pageExecOrder=${param.get("pageExecOrder")}&sortExecOrder=workersamount">Workers</a></th>
+                <th><a href="/profile?pageExecOrder=${param.get("pageExecOrder")}&sortExecOrder=dayamount">Days</a></th>
+                <th><a href="/profile?pageExecOrder=${param.get("pageExecOrder")}&sortExecOrder=date">Date</a></th>
+                <th><a href="/profile?pageExecOrder=${param.get("pageExecOrder")}&sortExecOrder=status">Status</a></th>
+            </tr>
+            <c:forEach items="${user.ordersExecuting}" var="ue">
+                <tr>
+                    <td><img src="${ue.workpicture}" alt="Work picture" height="100" width="100"></td>
+                    <td>${ue.ordername}
+                        <form action="/orderDone/${ue.id}" method="post">
+                            <button type="submit">Done</button>
+                        </form>
+                    </td>
+                    <td>${ue.payment}</td>
+                    <td>${ue.workersamount}</td>
+                    <td>${ue.dayamount}</td>
+                    <td>${ue.date}</td>
+                    <td>${ue.status}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
 </body>
 </html>
