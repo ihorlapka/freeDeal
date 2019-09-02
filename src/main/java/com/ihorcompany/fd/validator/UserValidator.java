@@ -40,11 +40,11 @@ public class UserValidator implements ConstraintValidator<RegistrationValidator,
             isValid = false;
         }
         if (userRepository.existsUserByUsername(userDTO.getUsername())){
-            userDTO.setInvalidUsername("User with such username already exists!");
+            userDTO.setInvalidUsername("This username already exists!");
             isValid = false;
         }
         if (userRepository.existsUserByEmail(userDTO.getEmail())){
-            userDTO.setInvalidEmail("User with such email already exists!");
+            userDTO.setInvalidEmail("This email already exists!");
             isValid = false;
         }
         return isValid;

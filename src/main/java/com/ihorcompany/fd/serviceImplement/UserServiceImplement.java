@@ -94,6 +94,7 @@ public class UserServiceImplement implements UserService {
         user.setHobbies(userDTO.getHobbies());
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
+        user.setProfilepicture(userDTO.getProfilepicture());
         return userRepository.save(user);
     }
 }

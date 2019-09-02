@@ -57,9 +57,12 @@ public class ProfController {
         model.addAttribute("user", userService.readByUsername(principal.getName()).orElseThrow(UserNotFoundException::new));
         model.addAttribute("files", storageService.loadAll()
                 .map(path -> MvcUriComponentsBuilder.fromMethodName(ProfController.class,
-                        "serveFile", path.getFileName().toString()).build().toString()).collect(Collectors.toList()));
-        model.addAttribute("orders", orderService.findAll(PageRequest.of(Integer.parseInt(pageMyOrder) - 1, TOTAL, Sort.by(sortMyOrder))));
-        model.addAttribute("orders", orderService.findAll(PageRequest.of(Integer.parseInt(pageExecOrder) - 1, TOTAL, Sort.by(sortExecOrder))));
+                        "serveFile", path.getFileName().toString()).build().toString())
+                .collect(Collectors.toList()));
+        model.addAttribute("orders", orderService.findAll(PageRequest.of(Integer.parseInt(pageMyOrder) - 1,
+                TOTAL, Sort.by(sortMyOrder))));
+        model.addAttribute("orders", orderService.findAll(PageRequest.of(Integer.parseInt(pageExecOrder) - 1,
+                TOTAL, Sort.by(sortExecOrder))));
         System.out.println(userService.readByUsername(principal.getName()));
         return "profile";
     }
@@ -96,10 +99,8 @@ public class ProfController {
     public String addFriend(@PathVariable(value = "id") User user, Principal principal) {
         System.out.println("\nUserId = " + user.getId() + " Username = " + user.getUsername() +
                 ", added to " + principal.getName() + " friends\n");
-
         userService.create(
-                userService.readByUsername(principal.getName())
-                        .map(u -> {
+                userService.readByUsername(principal.getName()).map(u -> {
                             u.getFriends().add(user);
                             user.getFriends().add(u);
                             return u;
@@ -110,13 +111,20 @@ public class ProfController {
     @PostMapping("/deleteFriend/{id}")
     public String deleteFriend(@PathVariable(value = "id") User user, Principal principal){
         System.out.println("\n"+user.getUsername()+" is deleted from "+principal.getName()+"'s friends");
-        userService.create(
-                userService.readByUsername(principal.getName()).map(u -> {
+        userService.create(userService.readByUsername(principal.getName()).map(u -> {
                     u.getFriends().remove(user);
                     user.getFriends().remove(u);
                     return u;
                 }).orElseThrow(UserNotFoundException::new));
         return "redirect:/profile";
     }
+
+//    @PostMapping("/avatar")
+//    public String avatar(Principal principal, Model model){
+//        model.addAllAttributes("avatar", userService.readByUsername(principal.getName()).map(u->{
+//            u.getProfilepicture()
+//        }))
+//        return "redirect:profile";
+//    }
 
 }

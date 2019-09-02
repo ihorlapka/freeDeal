@@ -17,8 +17,13 @@
         <br>
     </header>
     <img src="${user.profilepicture}" width="200px" height="200px">
-    <div><strong>Change your profile picture</strong></div>
+    <div></div><br>
     <form:form modelAttribute="user" method="post" action="/updateUser">
+        <div>
+            <form:label path="profilepicture"><pre><strong>Change your profile picture:
+            <br>just leave your link below</strong></pre></form:label>
+            <form:input path="profilepicture" placeholder="${user.profilepicture}"/>
+        </div>
         <div>
             <form:label path="firstname"><pre>First Name: </pre></form:label>
             <form:input path="firstname" placeholder="${user.firstname}"/>
@@ -125,6 +130,7 @@
             <tr>
                 <th>Photo</th>
                 <th>Username</th>
+                <th>Age/Prof</th>
             </tr>
             <c:forEach items="${user.friends}" var="f">
                 <tr>
@@ -136,6 +142,10 @@
                         <form action="/deleteFriend/${f.id}" method="post">
                             <button type="submit">- friend</button>
                         </form>
+                    </td>
+                    <td>${f.age}
+                        <br>
+                        ${f.profession}
                     </td>
                 </tr>
             </c:forEach>

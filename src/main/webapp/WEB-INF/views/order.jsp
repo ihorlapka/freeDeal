@@ -38,8 +38,9 @@
             <br>
             <div>
                 <form:label path="workpicture"><pre>Work Picture:</pre></form:label>
+                <form:input path="workpicture" placeholder="${order.workpicture}"/><br><br>
                 <img src="${order.workpicture}" alt="Work Picture" width="300"/>
-                <form:input path="workpicture" value="${order.workpicture}" type="hidden"/>
+<%--                <form:input path="workpicture" value="${order.workpicture}" type="hidden"/>--%>
             </div>
             <br>
             <div>

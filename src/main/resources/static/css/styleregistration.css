@@ -1,7 +1,7 @@
 div, h1{
     position: relative;
-    left: 40%;
-    top: 50px;
+    left: 70%;
+    top: 100px;
 }
 .error{
     color: coral;
@@ -13,6 +13,7 @@ h1{
 }
 
 body{
-    background-color: grey;
+    background-image: url("https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1308&q=80");
+    background-size: 140%;
 }
 
