@@ -30,6 +30,7 @@ public class ProfController {
     private StorageService storageService;
     private OrderService orderService;
     private int TOTAL = 5;
+    private String MESSAGE;
 
 
     @Autowired
@@ -63,7 +64,7 @@ public class ProfController {
                 TOTAL, Sort.by(sortMyOrder))));
         model.addAttribute("orders", orderService.findAll(PageRequest.of(Integer.parseInt(pageExecOrder) - 1,
                 TOTAL, Sort.by(sortExecOrder))));
-        System.out.println(userService.readByUsername(principal.getName()));
+        System.out.println("\n"+userService.readByUsername(principal.getName())+"\n");
         return "profile";
     }
 
@@ -108,6 +109,19 @@ public class ProfController {
         return "redirect:/index";
     }
 
+//    @PostMapping("/sendMessage/{id}")
+//    public String sendMessage(@PathVariable (value = "id") User user, Principal principal){
+//        System.out.println("\n"+principal.getName()+" is trying to send message to "+user.getUsername()+"\n");
+//        MESSAGE = "Hello";
+//        userService.create(
+//                userService.readByUsername(principal.getName()).map(u -> {
+//                    u.getMessage().add(MESSAGE);
+//                    user.getMessage().add(MESSAGE);
+//                    return u;
+//                }).orElseThrow(UserNotFoundException::new));
+//        return "redirect:/profile";
+//    }
+
     @PostMapping("/deleteFriend/{id}")
     public String deleteFriend(@PathVariable(value = "id") User user, Principal principal){
         System.out.println("\n"+user.getUsername()+" is deleted from "+principal.getName()+"'s friends");
@@ -118,13 +132,4 @@ public class ProfController {
                 }).orElseThrow(UserNotFoundException::new));
         return "redirect:/profile";
     }
-
-//    @PostMapping("/avatar")
-//    public String avatar(Principal principal, Model model){
-//        model.addAllAttributes("avatar", userService.readByUsername(principal.getName()).map(u->{
-//            u.getProfilepicture()
-//        }))
-//        return "redirect:profile";
-//    }
-
 }

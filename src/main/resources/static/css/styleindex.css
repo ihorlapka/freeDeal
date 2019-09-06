@@ -121,6 +121,13 @@ body{
     right: 4%;
     border-radius: 100px;
 }
+.avatar-properties{
+    position: absolute;
+    top: 55%;
+    right: 6%;
+    background-color: lightblue;
+
+}
 
 .userPage{
     position: absolute;
@@ -142,3 +149,18 @@ body{
 /*    position: relative;*/
 /*    top: 200px;*/
 /*}*/
+
+#main-content {
+    position: fixed;
+    right: 10px;
+    bottom: 0;
+    max-width: 170px;
+    padding: 2em 3em;
+    margin: 0 auto 20px;
+    background-color: darkcyan;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+

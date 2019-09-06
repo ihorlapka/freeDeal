@@ -115,10 +115,72 @@
     </div>
     <div>
         <img src="${user.profilepicture}" width="150" height="150" alt="User Photo" class="avatar">
+        <div class="avatar-properties">
+            <table border="1" width="25%" cellpadding="2">
+                <tr>
+                    <td><strong>Username:</strong></td>
+                    <td><strong>${user.username}</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Age:</strong></td>
+                    <td><strong>${user.age}</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Profession:</strong></td>
+                    <td><strong>${user.profession}</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Orders:</strong></td>
+                    <td><strong>${user.ordersAmount()}</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Friends:</strong></td>
+                    <td><strong>${user.friendsAmount()}</strong></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="main-content" class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="connect">WebSocket connection:</label>
+                        <button id="connect" class="btn btn-default" type="submit">Connect</button>
+                        <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="name">What would you like to write?</label>
+                        <input type="text" id="name" class="form-control" placeholder="type here...">
+                    </div>
+                    <button id="send" class="btn btn-default" type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table id="conversation" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Chat</th>
+                    </tr>
+                    </thead>
+                    <tbody id="greetings">
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </sec:authorize>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
     <script type="text/javascript" src="javascript/slick.min.js"></script>
-    <script src="javascript/indexJS.js"></script>
+    <script src="javascript/ws.js"></script>
 </body>
 </html>

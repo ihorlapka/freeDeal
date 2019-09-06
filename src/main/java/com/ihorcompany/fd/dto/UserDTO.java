@@ -19,6 +19,7 @@ public class UserDTO {
     private String profilepicture;
     private String hobbies;
 
+    //errors
     private String alreadyExistsError;
     private String invalidEmail;
     private String invalidUsername;

@@ -5,10 +5,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "User")
@@ -27,6 +24,7 @@ public class User implements UserDetails {
     private String profession;
     private String profilepicture;
     private String hobbies;
+
 
 
     @OneToMany
@@ -53,7 +51,6 @@ public class User implements UserDetails {
     private List<Order> orders;
 
 
-
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -75,8 +72,28 @@ public class User implements UserDetails {
     }
 
 
-
     public User() {
+    }
+
+    public int friendsAmount(){
+        int amount = 0;
+        System.out.println(username+"'s friends:\n");
+        Iterator<User> userIterator = friends.iterator();
+        while (userIterator.hasNext()){
+            System.out.println(amount+". "+userIterator.next());
+            amount++;
+        }
+        return amount;
+    }
+
+    public int ordersAmount(){
+        int amount = 0;
+        System.out.println(username+"'s orders:\n");
+        for (Order o:orders) {
+            System.out.println(amount+". "+o);
+            amount++;
+        }
+        return amount;
     }
 
     public List<Role> getRoles() {
@@ -199,6 +216,7 @@ public class User implements UserDetails {
         this.ordersExecuting = ordersExecuting;
     }
 
+
     @Override
     public String toString() {
         return "User{" +
@@ -214,7 +232,6 @@ public class User implements UserDetails {
                 ", profilepicture='" + profilepicture + '\'' +
                 ", hobbies='" + hobbies + '\'' +
                 ", roles=" + roles +
-//                ", friends=" + friends +
                 ", orders=" + orders +
                 '}';
     }
