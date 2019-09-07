@@ -116,16 +116,15 @@ public class ProfController {
         return "redirect:/index";
     }
 
-    @PostMapping("/sendMessage/{id}")
-    public String sendMessage(@PathVariable (value = "id") User user, Principal principal, Model model){
+    @GetMapping("/sendMessage/{id}")
+    public String sendMessage(@PathVariable (value = "id") User user, Principal principal, Model model,
+                              @RequestParam(name = "message") String text){
         System.out.println("\n"+principal.getName()+" is trying to send message to "+user.getUsername()+"\n");
         Message message = new Message();
-        model.addAttribute("message", message);
+        message.setMessage(text);
         messageService.send(message,
                 userService.readByUsername(principal.getName()).get(),
                 userService.readByUsername(user.getUsername()).get());
-        message.setMessage("test!");
-        messageService.save(message);
         System.out.println(principal.getName()+" send message to "+user.getUsername());
         return "redirect:/profile";
     }
