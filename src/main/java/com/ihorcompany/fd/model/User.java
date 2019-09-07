@@ -25,7 +25,11 @@ public class User implements UserDetails {
     private String profilepicture;
     private String hobbies;
 
+    @OneToMany(mappedBy = "sender", fetch = FetchType.LAZY)
+    private Set<Message> sentMessages;
 
+    @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
+    private Set<Message> receivedMessages;
 
     @OneToMany
     private Set<User> friends;
@@ -214,6 +218,22 @@ public class User implements UserDetails {
 
     public void setOrdersExecuting(Set<Order> ordersExecuting) {
         this.ordersExecuting = ordersExecuting;
+    }
+
+    public Set<Message> getSentMessages() {
+        return sentMessages;
+    }
+
+    public void setSentMessages(Set<Message> sentMessages) {
+        this.sentMessages = sentMessages;
+    }
+
+    public Set<Message> getReceivedMessages() {
+        return receivedMessages;
+    }
+
+    public void setReceivedMessages(Set<Message> receivedMessages) {
+        this.receivedMessages = receivedMessages;
     }
 
 

@@ -136,9 +136,15 @@
                 <tr>
                     <td><img src="${f.profilepicture}" alt="friend" height="100" width="100"></td>
                     <td>${f.username}
-                        <form action="/sendMessage/${f.id}" method="post">
-                            <button type="submit">message</button>
-                        </form>
+                        <button class="btn-show">message</button>
+                        <div class="message-window" hidden>
+                            <button class="btn-hide">Hide</button><br>
+<%--                            <span>Messaging with ${f.username}</span>--%>
+                            <form action="/sendMessage/${f.id}" method="post">
+                                <input type="text">
+                                <button type="submit">send</button>
+                            </form>
+                        </div>
                         <form action="/deleteFriend/${f.id}" method="post">
                             <button type="submit">- friend</button>
                         </form>
@@ -181,5 +187,7 @@
         </table>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="javascript/messaging.js"></script>
 </body>
 </html>

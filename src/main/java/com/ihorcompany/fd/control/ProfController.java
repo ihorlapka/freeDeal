@@ -3,7 +3,9 @@ package com.ihorcompany.fd.control;
 import com.ihorcompany.fd.dto.UserDTO;
 import com.ihorcompany.fd.exception.StorageFileNotFoundException;
 import com.ihorcompany.fd.exception.UserNotFoundException;
+import com.ihorcompany.fd.model.Message;
 import com.ihorcompany.fd.model.User;
+import com.ihorcompany.fd.service.MessageService;
 import com.ihorcompany.fd.service.OrderService;
 import com.ihorcompany.fd.service.StorageService;
 import com.ihorcompany.fd.service.UserService;
@@ -29,8 +31,9 @@ public class ProfController {
     private UserService userService;
     private StorageService storageService;
     private OrderService orderService;
+    private MessageService messageService;
     private int TOTAL = 5;
-    private String MESSAGE;
+//    private String TEXT;
 
 
     @Autowired
@@ -48,6 +51,10 @@ public class ProfController {
         this.userService = userService;
     }
 
+    @Autowired
+    public void setMessageService(MessageService messageService) {
+        this.messageService = messageService;
+    }
 
     @GetMapping("/profile")
     public String profile(Principal principal, Model model,
@@ -109,18 +116,19 @@ public class ProfController {
         return "redirect:/index";
     }
 
-//    @PostMapping("/sendMessage/{id}")
-//    public String sendMessage(@PathVariable (value = "id") User user, Principal principal){
-//        System.out.println("\n"+principal.getName()+" is trying to send message to "+user.getUsername()+"\n");
-//        MESSAGE = "Hello";
-//        userService.create(
-//                userService.readByUsername(principal.getName()).map(u -> {
-//                    u.getMessage().add(MESSAGE);
-//                    user.getMessage().add(MESSAGE);
-//                    return u;
-//                }).orElseThrow(UserNotFoundException::new));
-//        return "redirect:/profile";
-//    }
+    @PostMapping("/sendMessage/{id}")
+    public String sendMessage(@PathVariable (value = "id") User user, Principal principal, Model model){
+        System.out.println("\n"+principal.getName()+" is trying to send message to "+user.getUsername()+"\n");
+        Message message = new Message();
+        model.addAttribute("message", message);
+        messageService.send(message,
+                userService.readByUsername(principal.getName()).get(),
+                userService.readByUsername(user.getUsername()).get());
+        message.setMessage("test!");
+        messageService.save(message);
+        System.out.println(principal.getName()+" send message to "+user.getUsername());
+        return "redirect:/profile";
+    }
 
     @PostMapping("/deleteFriend/{id}")
     public String deleteFriend(@PathVariable(value = "id") User user, Principal principal){

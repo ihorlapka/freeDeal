@@ -20,6 +20,7 @@ h1{
     background-color: antiquewhite;
     opacity: 0.8;
     border-radius: 10px;
+    z-index: 4;
 }
 
 h2{
@@ -62,6 +63,8 @@ h2{
     left: 19%;
     background-color: antiquewhite;
     border-radius: 10px;
+    opacity: 0.8;
+    z-index: 4;
 }
 
 .h3-2{
@@ -69,5 +72,20 @@ h2{
     left: 30%;
     top: 50%;
     color: darkcyan;
+}
+
+.message-window{
+    position: fixed;
+    left: 2%;
+    bottom: 0;
+    max-width: 170px;
+    padding: 2em 3em;
+    margin: 0 auto 20px;
+    background-color: darkcyan;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    z-index: 10;
 }
 
